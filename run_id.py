@@ -1,19 +1,13 @@
 import boto3
-
+from botocore.exceptions import ClientError
 
 instance_id = 'i-06edd4f2a87e541a8'
-action = 'ON'
+action = ''
 region = 'eu-west-1'
 
 ec2 = boto3.client('ec2', region)
 
-def get_public_ip(id):
-    ec2_client = boto3.client("ec2", region_name="us-west-2")
-    reservations = ec2_client.describe_instances(InstanceIds=[id]).get("Reservations")
 
-    for reservation in reservations:
-        for instance in reservation['Instances']:
-            print(instance.get("PublicIpAddress"))
 
 if action == 'ON':
     # Do a dryrun first to verify permissions
@@ -43,4 +37,12 @@ else:
         print(response)
     except ClientError as e:
         print(e)
-get_public_ip(instance_id)
+
+def get_public_ip(id):
+    ec2_client = boto3.client("ec2", region_name="us-west-2")
+    reservations = ec2_client.describe_instances(InstanceIds=[id]).get("Reservations")
+
+    for reservation in reservations:
+        for instance in reservation['Instances']:
+            print(instance.get("PublicIpAddress"))
+# get_public_ip(instance_id)
