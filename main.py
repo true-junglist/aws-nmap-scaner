@@ -8,7 +8,7 @@ regions = [region['RegionName'] for region in client.describe_regions()['Regions
 
 
 """
-A functions for retrieving basic information from the running EC2 instances.
+A function for retrieving basic information from the running EC2 instances.
 """
 def running_in_region(region):
     # Connect to EC2
@@ -45,4 +45,3 @@ def running_in_region(region):
 
 for r in regions:
     running_in_region(r)
-
