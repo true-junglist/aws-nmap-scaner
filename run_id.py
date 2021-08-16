@@ -34,7 +34,7 @@ else:
     # Dry run succeeded, call stop_instances without dryrun
     try:
         response = ec2.stop_instances(InstanceIds=[id], DryRun=False)
-        print(response)
+        # print(response)
     except ClientError as e:
         print(e)
 
