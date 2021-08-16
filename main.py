@@ -18,7 +18,7 @@ def running_in_region(region):
     running_instances = ec2r.instances.filter(Filters=[{
         'Name': 'instance-state-name',
         'Values': ['running']}])
-
+    f = open('list_ips.txt', 'a')
     ec2info = defaultdict()
     for instance in running_instances:
         # for tag in instance.tags:
@@ -36,9 +36,9 @@ def running_in_region(region):
             'Launch Time': instance.launch_time,
             'Key pair name' : instance.key_name
             }
-        # if instance.public_ip_address is not ['None']:
-        print(instance.public_ip_address)
-            # print("------")
+        if instance.public_ip_address is not None:
+            f.write(str(instance.public_ip_address) + '\n')
+    f.close()
 
     attributes = ['Name', 'Type', 'State', 'Private IP', 'Public IP', 'Launch Time', 'Key pair name']
     for instance_id, instance in ec2info.items():
@@ -47,6 +47,8 @@ def running_in_region(region):
         print("------")
 
 def main():
+    f = open('list_ips.txt', 'w')
+    f.close()
     for r in regions:
         running_in_region(r)
 
