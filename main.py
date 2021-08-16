@@ -36,6 +36,9 @@ def running_in_region(region):
             'Launch Time': instance.launch_time,
             'Key pair name' : instance.key_name
             }
+        # if instance.public_ip_address is not ['None']:
+        print(instance.public_ip_address)
+            # print("------")
 
     attributes = ['Name', 'Type', 'State', 'Private IP', 'Public IP', 'Launch Time', 'Key pair name']
     for instance_id, instance in ec2info.items():
@@ -43,5 +46,10 @@ def running_in_region(region):
             print("{0}: {1}".format(key, instance[key]))
         print("------")
 
-for r in regions:
-    running_in_region(r)
+def main():
+    for r in regions:
+        running_in_region(r)
+
+
+if __name__ =="__main__":
+    main()

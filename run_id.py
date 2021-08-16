@@ -7,8 +7,6 @@ region = 'eu-west-1'
 
 ec2 = boto3.client('ec2', region)
 
-
-
 if action == 'ON':
     # Do a dryrun first to verify permissions
     try:
@@ -38,6 +36,7 @@ else:
     except ClientError as e:
         print(e)
 
+
 def get_public_ip(instance_id):
     ec2_client = boto3.client("ec2", region)
     reservations = ec2_client.describe_instances(InstanceIds=[instance_id]).get("Reservations")
@@ -45,4 +44,6 @@ def get_public_ip(instance_id):
     for reservation in reservations:
         for instance in reservation['Instances']:
             print(instance.get("PublicIpAddress"))
+
+
 get_public_ip(id)
